@@ -1,2 +1,2 @@
-release: python managee.py migrate --noinput
+release: python manage.py migrate --noinput
 web: gunicorn webdev.wsgi --log-file -
