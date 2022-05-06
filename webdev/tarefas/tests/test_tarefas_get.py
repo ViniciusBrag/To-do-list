@@ -31,7 +31,7 @@ def test_formulario_presente(resposta):
     Args:
         assertContains (_type_): Método da framework django que disponibiliza verificar asserções.
     """
-    assertContains(resposta, '<form>')
+    assertContains(resposta, '<form')
 
 
 def test_botao_salvar_presente(resposta):
