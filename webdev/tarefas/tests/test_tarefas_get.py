@@ -65,9 +65,24 @@ def lista_de_tarefas_pendentes(db):
     Tarefa.objects.bulk_create(tarefas)
     return tarefas
 
+@pytest.fixture
+def lista_de_tarefas_feitas(db):
+    """_summary_
+    Teste para criação de tarefas no banco de dados.
+
+    Args:
+        db (_type_): Padrão do django para acessar o banco de dados
+    """
+    tarefas =[ 
+        Tarefa(nome='tarefa 3', feita=True),
+        Tarefa(nome='tarefa 4', feita=True),
+    ]
+    Tarefa.objects.bulk_create(tarefas)
+    return tarefas
+
 
 @pytest.fixture
-def resposta_com_lista_de_tarefas(client, lista_de_tarefas_pendentes):
+def resposta_com_lista_de_tarefas(client, lista_de_tarefas_pendentes, lista_de_tarefas_feitas):
     """_summary_
     Fixture com verbo get para acessar se a resposta foi feita com a lista de Tarefas pendentes.
 
@@ -80,7 +95,7 @@ def resposta_com_lista_de_tarefas(client, lista_de_tarefas_pendentes):
     return resp
 
 
-def test_lista_de_tarefas_pendentes_present(resposta_com_lista_de_tarefas, lista_de_tarefas_pendentes):
+def test_lista_de_tarefas_pendentes_present(resposta_com_lista_de_tarefas, lista_de_tarefas_feitas):
     """_summary_
     Teste com verbo get para listar tarefas que estão com a objeto "feita=False" no banco de dados
 
@@ -88,5 +103,5 @@ def test_lista_de_tarefas_pendentes_present(resposta_com_lista_de_tarefas, lista
     Args:
         assertContains (_type_): Método da framework django que disponibiliza verificar asserções.
     """
-    for tarefa in lista_de_tarefas_pendentes:
+    for tarefa in lista_de_tarefas_feitas:
         assertContains(resposta_com_lista_de_tarefas, tarefa.nome)  
