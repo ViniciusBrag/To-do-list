@@ -14,9 +14,10 @@
             <form action="{% url 'tarefas:home' %}" method="post"><!--Método post verbo http adequado para envio de resposta-->
                 {% csrf_token %} 
                 <div class="input-group mt-3">                      
-                    <input type="text" class="form-control" placeholder="Descreva sua tarefa" aria-label="Descreva sua tarefa" aria-describedby="button-addon2" name="nome"> <!--name opção para coneguirmos pegar informações enviadass pelo usuário-->
+                    <input type="text" class="form-control" placeholder="Descreva sua tarefa" aria-label="Descreva sua tarefa" aria-describedby="button-addon2" name="nome"><!--name opção para coneguirmos pegar informações enviadass pelo usuário-->
                     <button type="submit" class="btn btn-primary" id="button-addon2">Salvar</button>
-                </div>    
+                </div>
+                <small class="form-text text-muted">{{ form.nome.errors }}</small>     
             </form>    
         </div>
         
