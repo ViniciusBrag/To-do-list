@@ -8,6 +8,22 @@ from webdev.tarefas.models import Tarefa
 
 
 @pytest.fixture
+def tarefa_feita(db):
+   return Tarefa.objects.create(nome='Tarefa ', feita=True) 
+
+
+@pytest.fixture
+def resposta_com_tarefas_pendentes(client, tarefas_feitas):
+    resp = client.post(reverse('tarefas:detalhe', kwargs={'tarefa_id': tarefas_feitas.id}),
+        data={'nome': f'{tarefas_feitas.nome}-editada'}
+    )
+    return resp
+
+
+
+
+
+@pytest.fixture
 def tarefas_pendentes(db):
     """_summary_
     Teste para criação de tarefas no banco de dados.
