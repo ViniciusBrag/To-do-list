@@ -23,33 +23,50 @@
             <h2 class="mt-5">Tarefas Pendentes</h2>
 
             {% for tarefa in tarefas_pendentes %}
-            <form action="{% url 'tarefas:detalhe'  tarefa_id=tarefa.id %}" method="post"><!--Método post verbo http adequado para envio de resposta-->
-                {% csrf_token %} 
-                <div class="input-group mt-3">                      
-                    <input type="text" class="form-control" placeholder="Descreva sua tarefa" required="required" aria-label="Descreva sua tarefa" aria-describedby="button-addon2" name="nome" value="{{ tarefa.nome}}">
-                    <input type="hidden" value='checked' name="feita"></input>
-                    
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-success" id="button-addon2">Marcar como feita</button>
-                    </div>    
-                </div>
-            </form>
+                <form action="{% url 'tarefas:detalhe'  tarefa_id=tarefa.id %}" method="post"><!--Método post verbo http adequado para envio de resposta-->
+                    {% csrf_token %} 
+                    <div class="input-group mt-3">                      
+                        <input type="text" class="form-control" placeholder="Descreva sua tarefa" required="required" aria-label="Descreva sua tarefa" aria-describedby="button-addon2" name="nome" value="{{ tarefa.nome}}">
+                        <input type="hidden" value='checked' name="feita"></input>
+                        
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-success" id="button-addon2">Marcar como feita</button>
+                        </div>    
+                    </div>
+                </form>
             {% endfor %}
 
             <h2 class="mt-5">Tarefas Concluídas</h2>
 
             {% for tarefa in tarefas_feitas %}
-                <form action="{% url 'tarefas:detalhe'  tarefa_id=tarefa.id %}" method="post"><!--Método post verbo http adequado para envio de resposta-->
-                    {% csrf_token %} 
-                    <div class="input-group mt-2">                      
-                        <input type="text" class="form-control" placeholder="Descreva sua tarefa" required="required" aria-label="Descreva sua tarefa" aria-describedby="button-addon2" name="nome" value="{{ tarefa.nome}}">
-                        <input type="hidden" value='checked'></input>
-                        
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-warning" id="button-addon2">Marcar como Pendente</button>
-                        </div>    
+                <div class="row">
+                    <div class="col-2">
+                        <form action="{% url 'tarefas:apagar'  tarefa_id=tarefa.id %}" method="post"><!--Método post verbo http adequado para envio de resposta-->
+                            {% csrf_token %} 
+                            <div class="input-group mt-2">                      
+                                <input type="text" class="form-control" placeholder="Descreva sua tarefa" required="required" aria-label="Descreva sua tarefa" aria-describedby="button-addon2" name="nome" value="{{ tarefa.nome}}">
+                                <input type="hidden" value='checked'></input>
+                                
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-danger" id="button-addon2">Apagar</button>
+                                </div>    
+                            </div>
+                        </form>
                     </div>
-                </form>
+                    <div class="col-10">
+                        <form action="{% url 'tarefas:detalhe'  tarefa_id=tarefa.id %}" method="post"><!--Método post verbo http adequado para envio de resposta-->
+                            {% csrf_token %} 
+                            <div class="input-group mt-2">                      
+                                <input type="text" class="form-control" placeholder="Descreva sua tarefa" required="required" aria-label="Descreva sua tarefa" aria-describedby="button-addon2" name="nome" value="{{ tarefa.nome}}">
+                                <input type="hidden" value='checked'></input>
+                                
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-warning" id="button-addon2">Marcar como Pendente</button>
+                                </div>    
+                            </div>
+                        </form>
+                    </div>     
+                </div>
             {% endfor %}  
         </div>
     </div>
